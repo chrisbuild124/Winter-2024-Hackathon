@@ -34,13 +34,14 @@ def main():
 
     # Display the result
     if weather_data:
-        print("\nWeather Information for", city_name)
-        print("Temperature:", weather_data['main']['temp'], "K")
-        print("Weather Condition:", weather_data['weather'][0]['description'])
-        print("Humidity:", weather_data['main']['humidity'], "%")
-        print("Wind Speed:", weather_data['wind']['speed'], "m/s")
+        city_name = city_name
+        temperature = weather_data['main']['temp']
+        description = weather_data['weather'][0]['description']
+        humidity = weather_data['main']['humidity']
+        speed = weather_data['wind']['speed']
     else:
         print("Failed to retrieve weather information.")
+        return
 
 
 if __name__ == "__main__":
