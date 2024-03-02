@@ -1,7 +1,17 @@
 import requests
 
 
+class Resort():
+    """
+    Description:
+    """
+
+
+
 def get_weather(api_key, city_name):
+    """
+    Description:
+    """
     base_url = "http://api.openweathermap.org/data/2.5/weather"
 
     # Set up the parameters for the API request
