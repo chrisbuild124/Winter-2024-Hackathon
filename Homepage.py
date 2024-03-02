@@ -1,71 +1,47 @@
-# Makes HTTP Requests in Python
 import requests
 
-# Used to retrieve items from an iterable object
-from operator import itemgetter
 
-# Make an API call, and store the response.
+def get_weather(api_key, city_name):
+    base_url = "http://api.openweathermap.org/data/2.5/weather"
+
+    # Set up the parameters for the API request
+    params = {
+        'q': city_name,
+        'appid': api_key,
+    }
+
+    # Make the API call
+    response = requests.get(base_url, params=params)
+
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Parse the JSON response
+        weather_data = response.json()
+        return weather_data
+    else:
+        print(f"Error: Unable to fetch weather data. Status Code: {response.status_code}")
+        return None
+
 
 def main():
-    """
-    Description: Main function for program.
-
-    :returns: Void
-    """
-    data = get_city_name()
-    weather_data = get_weather_data()
-
-
-def get_city_name():
-    """XXX"""
-    city = input("What city to ski?: ")
     api_key = '9f6930e1d6505ed136bd2863a790dab8'
-    url = f'http://api.openweathermap.org/geo/1.0/direct?q={city}&appid={api_key}'
-    data = make_api_call(url)
-    print(data)
-    return data
+
+    # Input the city name
+    city_name = input("Enter the city name: ")
+
+    # Get weather data
+    weather_data = get_weather(api_key, city_name)
+
+    # Display the result
+    if weather_data:
+        print("\nWeather Information for", city_name)
+        print("Temperature:", weather_data['main']['temp'], "K")
+        print("Weather Condition:", weather_data['weather'][0]['description'])
+        print("Humidity:", weather_data['main']['humidity'], "%")
+        print("Wind Speed:", weather_data['wind']['speed'], "m/s")
+    else:
+        print("Failed to retrieve weather information.")
 
 
-def get_weather_data(lat, lon):
-    """XXX"""
-    api_key = '9f6930e1d6505ed136bd2863a790dab8'
-    part = 'current,minutely,hourly'  # Define the value for 'part'
-    url = f'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&exclude={part}&appid={api_key}'
-    data = make_api_call(url)
-
-
-def make_api_call(url):
-    """XXX"""
-    r = requests.get(url)
-    print(r.json)
-    print("Status code:", r.status_code)
-    #
-    # # Process information about each submission.
-    # submission_ids = r.json()
-    # submission_dicts = []
-    # for submission_id in submission_ids[:30]:
-    #     # Make a separate API call for each submission.
-    #     url = ('https://hacker-news.firebaseio.com/v0/item/' +
-    #            str(submission_id) + '.json')
-    #     submission_r = requests.get(url)
-    #     print(submission_r.status_code)
-    #     response_dict = submission_r.json()
-    #
-    #     submission_dict = {
-    #         'title': response_dict['title'],
-    #         'link': 'http://news.ycombinator.com/item?id=' + str(submission_id),
-    #         'comments': response_dict.get('descendants', 0)
-    #     }
-    #     submission_dicts.append(submission_dict)
-    #
-    # submission_dicts = sorted(submission_dicts, key=itemgetter('comments'),
-    #                           reverse=True)
-    #
-    # for submission_dict in submission_dicts:
-    #     print("\nTitle:", submission_dict['title'])
-    #     print("Discussion link:", submission_dict['link'])
-    #     print("Comments:", submission_dict['comments'])
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
