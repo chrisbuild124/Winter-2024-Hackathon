@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ski Report</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    </head>
+    <body>
+        <h1>Welcome to the Ski Report!</h1>
+
+        {% for resort in resorts %}
+        <div class="resort-tile">
+            <h2 class="resort-name">{{ resort.name }}</h2>
+            <div class="stats-container">
+                <div class="stat">
+                    <span class="stat-label">Temperature:</span>
+                    <span class="stat-value">{{ resort.get_temperature }}</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">24-hour Snow:</span>
+                    <span class="stat-value">Example inches</span>
+                </div>
+            </div>
+        {% endfor %}
+        </body>
+</html>
+
