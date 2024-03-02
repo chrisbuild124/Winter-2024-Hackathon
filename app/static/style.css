@@ -1,0 +1,59 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.resort-tile {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.resort-name {
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 1.5em;
+}
+
+.image-container {
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.stat {
+    text-align: center;
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.stat-label {
+    color: #888;
+    font-size: 0.9em;
+}
+
+.stat-value {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+}
