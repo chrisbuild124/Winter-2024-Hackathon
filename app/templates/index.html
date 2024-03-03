@@ -9,19 +9,30 @@
     <body>
         <h1>Welcome to the Ski Report!</h1>
 
+        <form method="post" action="/">
+            <label for="city">Enter City:</label>
+            <input type="text" id="city" name="city" required>
+            <button type="submit">Get Info</button>
+        </form>
+
         {% for resort in resorts %}
         <div class="resort-tile">
             <h2 class="resort-name">{{ resort.name }}</h2>
             <div class="stats-container">
                 <div class="stat">
                     <span class="stat-label">Temperature:</span>
-                    <span class="stat-value">{{ resort.get_temperature }}</span>
+                    <span class="stat-value">{{ resort.get_temperature() }}</span>   
                 </div>
                 <div class="stat">
-                    <span class="stat-label">24-hour Snow:</span>
-                    <span class="stat-value">Example inches</span>
+                    <span class="stat-label">Conditions:</span>
+                    <span class="stat-value">{{ resort.get_description() }}</span>   
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Resort Rating:</span>
+                    <span class="stat-value">{{ resort.get_rating() }}</span>
                 </div>
             </div>
+        </div>
         {% endfor %}
         </body>
 </html>
