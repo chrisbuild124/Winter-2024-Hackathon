@@ -1,5 +1,5 @@
 import requests
-from resorts_selection import *
+from resorts_selection import find_nearest_resorts
 
 
 class Resorts:
@@ -14,21 +14,28 @@ class Resorts:
         self._city = city_name
         self._city_lat = self._weather_data['coord']['lat']
         self._city_lon = self._weather_data['coord']['lon']
-        self._temperature = self._weather_data['main']['temp']
-        self._description = self._weather_data['weather'][0]['description']
-        self._humidity = self._weather_data['main']['humidity']
-        self._speed = self._weather_data['wind']['speed']
+        data_list = find_nearest_resorts(self._city_lat, self._city_lon)
+        self._rating_1 = data_list[0][4]
+        self._weather_data_1 = self._get_weather_data(0, data_list[0][3], data_list[0][4])
+        self._temperature_1 = self._weather_data_1['main']['temp']
+        self._description_1 = self._weather_data_1['weather'][0]['description']
 
-
-    def _get_weather_data(self, city_name):
+    def _get_weather_data(self, city_name, lat=0, lon=0):
         """XXX"""
         base_url = "http://api.openweathermap.org/data/2.5/weather"
         # Set up the parameters for the API request
         api_key = '9f6930e1d6505ed136bd2863a790dab8'
-        params = {
-            'q': city_name,
-            'appid': api_key,
-        }
+        if city_name != 0:
+            params = {
+                'q': city_name,
+                'appid': api_key,
+            }
+        else:
+            params = {
+                'lat': lat,
+                'lon': lon,
+                'appid': api_key,
+            }
 
         # Make the API call
         response = requests.get(base_url, params=params)
@@ -68,22 +75,31 @@ class Resorts:
             print(f"Error: Unable to fetch weather data. Status Code: Try again.")
             return None
 
-    def get_city(self):
-        """XXX"""
-        return self._city
-
     def get_temperature(self):
         """XXX"""
-        return self._temperature
+        return self._temperature_1
 
     def get_description(self):
         """XXX"""
-        return self._description
+        return self._description_1
 
-    def get_humidity(self):
+    def get_rating(self):
         """XXX"""
-        return self._humidity
+        return self._rating_1
 
-    def get_speed(self):
-        """XXX"""
-        return self._speed
+
+
+# resorts_1 = Resorts('Indianapolis')
+# print("hi")
+
+    # def get_city(self):
+    #     """XXX"""
+    #     return self._city
+
+    # def get_humidity(self):
+    #     """XXX"""
+    #     return self._humidity
+    #
+    # def get_speed(self):
+    #     """XXX"""
+    #     return self._speed
