@@ -1,13 +1,11 @@
-import requests
-from resorts_selection import find_nearest_resorts
-
-
 class Resorts:
     """
     Description:
     """
     def __init__(self, city_name):
         """XXX"""
+        import requests
+        from resorts_selection import find_nearest_resorts
         self._weather_data = None
         while self._weather_data is None:
             self._weather_data = self._get_weather_data(city_name)
@@ -22,6 +20,8 @@ class Resorts:
 
     def _get_weather_data(self, city_name, lat=0, lon=0):
         """XXX"""
+        import requests
+        from resorts_selection import find_nearest_resorts
         base_url = "http://api.openweathermap.org/data/2.5/weather"
         # Set up the parameters for the API request
         api_key = '9f6930e1d6505ed136bd2863a790dab8'
@@ -51,6 +51,8 @@ class Resorts:
 
     def _get_ski_data(self, city_name):
         """XXX"""
+        import requests
+        from resorts_selection import find_nearest_resorts
         base_url = 'https://api.weatherunlocked.com/'
         app_id = 'fc992c67'
 
